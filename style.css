@@ -1,0 +1,585 @@
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(27, 22, 22);
+}
+
+
+/* Navigation */
+
+nav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    background-color: rgba(20, 20, 20, 0.9);
+    padding: 12px 18px;
+    border-left: 3px solid transparent;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: background-color 0.4s, border-color 0.4s, transform 0.4s;
+}
+
+nav a:hover {
+    background-color: #333;
+    border-left-color: #f5c542;
+    transform: translateX(5px);
+}
+
+
+/* Header */
+
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+header h1 {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.next-button {
+    margin-top: 40px;
+    color: white;
+    text-decoration: none;
+    font-size: 40px;
+    transition: transform 0.3s;
+}
+
+.next-button:hover {
+    transform: translateY(5px);
+}
+
+
+/* Main Content */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Movie Sections */
+
+.movie {
+    width: 85%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+}
+
+
+/* Movie Posters */
+
+
+.poster-gallery {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    padding: 30px 20px;
+}
+
+
+.poster-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.poster-gallery img {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 8px;
+    cursor: pointer;
+
+    /* Default poster shadow */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.poster-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.poster-gallery img.selected {
+    transform: scale(1.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(245, 197, 66, 0.25);
+}
+
+
+/* Movie Information */
+
+.movie-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 650px;
+    color: white;
+    padding: 70px;
+}
+
+.movie-info h1 {
+    margin: 5px 0;
+    font-size: 40px;
+}
+
+.movie-info p {
+    line-height: 1.6;
+    font-size: 17px;
+}
+
+.movie-info .genre {
+    display: inline-block;
+    margin: 5px 0 8px;
+    padding: 5px 12px;
+    color: #f5c542;
+    background-color: rgba(245, 197, 66, 0.1);
+    border: 1px solid rgba(245, 197, 66, 0.4);
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+
+/* Additional Movie Information from Buttons */
+
+
+/* Dialogs */
+
+dialog {
+    background: linear-gradient(145deg, #292222, #191515);
+    color: #f5f0e8;
+    border: 1px solid rgba(245, 197, 66, 0.35);
+    border-radius: 16px;
+    padding: 35px;
+    width: 80%;
+    max-width: 750px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* Smooth dialog appearance */
+
+dialog[open] {
+    animation: dialog-appear 0.3s ease-out;
+}
+
+@keyframes dialog-appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Darken the background behind the dialog */
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+/* Dialog headings */
+
+dialog h1 {
+    margin: 0 0 20px;
+    color: #f5c542;
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+dialog h3 {
+    margin: 25px 0 8px;
+    color: #e8c777;
+    font-size: 1.15rem;
+}
+
+/* Dialog text */
+
+dialog p {
+    color: #d4cccc;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+/* Synopsis spacing */
+
+.synopsis {
+    margin-bottom: 30px;
+}
+
+/* Film details layout */
+
+.film-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 40px;
+    margin-top: 25px;
+}
+
+.film-details h3 {
+    margin-top: 0;
+}
+
+/* Dialog buttons */
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.buttons button {
+    background-color: #f5c542;
+    color: #1b1616;
+    border: 2px solid #f5c542;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.25s,
+                color 0.25s,
+                transform 0.25s;
+}
+
+.buttons button:hover {
+    background-color: transparent;
+    color: #f5c542;
+    transform: translateY(-2px);
+}
+
+.buttons button:focus-visible,
+.close-learn-more:focus-visible,
+.close-trailer:focus-visible {
+    outline: 2px solid #f5c542;
+    outline-offset: 4px;
+}
+
+/* Close buttons */
+
+.close-learn-more,
+.close-trailer {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #e5dddd;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+.close-learn-more:hover,
+.close-trailer:hover {
+    background-color: #f5c542;
+    color: #1b1616;
+}
+
+/* Trailer dialog */
+
+.trailer {
+    width: 90%;
+    max-width: 960px;
+    padding: 25px;
+}
+
+.trailer iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Dialog scrollbar */
+
+dialog {
+    scrollbar-width: thin;
+    scrollbar-color: #8e7437 #201b1b;
+}
+
+dialog::-webkit-scrollbar {
+    width: 8px;
+}
+
+dialog::-webkit-scrollbar-track {
+    background: #201b1b;
+    border-radius: 10px;
+}
+
+dialog::-webkit-scrollbar-thumb {
+    background: #8e7437;
+    border-radius: 10px;
+}
+
+/* Responsive dialogs */
+
+@media (max-width: 600px) {
+    dialog,
+    .trailer {
+        width: 95%;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    dialog h1 {
+        font-size: 1.6rem;
+    }
+
+    .film-details {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .trailer iframe {
+        border-radius: 6px;
+    }
+}
+
+
+/* Movie Ratings */
+
+.movie-info .rating {
+    font-size: 28px;
+    margin: 5px 0 15px;
+}
+
+.movie-info .rating {
+    font-size: 28px;
+    margin: 5px 0 15px;
+}
+
+
+/* Recommendation Section */
+
+.recommendations {
+    width: 85%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: white;
+    text-align: center;
+}
+
+
+/* Recommendation Form */
+
+.recommendations form {
+    width: 500px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    background-color: #1f1b1b;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.recommendations label {
+    text-align: left;
+    font-size: 15px;
+}
+
+.recommendations input,
+.recommendations textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.recommendations input[type="submit"] {
+    margin-top: 10px;
+    background-color: #f5c542;
+    color: #222;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.recommendations input[type="submit"]:hover {
+    background-color: #dcae2f;
+    transform: scale(1.03);
+}
+
+
+
+
+#recommendation-result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #292323;
+    color: white;
+}
+
+#recommendation-result:empty {
+    display: none;
+}
+
+#recommendation-result h3 {
+    color: #f0c674;
+}
+
+
+/* Footer */
+
+footer {
+    width: 100%;
+    padding: 20px 0;
+    background-color: #151212;
+    color: #888;
+    text-align: center;
+    font-size: 15px;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* Movie Entrance Animation */
+
+.movie:target {
+    animation: movie-fade-in 1.5s ease-in-out;
+}
+
+@keyframes movie-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+@media (max-width: 1400px) {
+    nav {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    header {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    header h1 {
+        font-size: 36px;
+    }
+
+    .next-button {
+        font-size: 35px;
+    }
+
+    .movie {
+        width: 90%;
+        flex-direction: column;
+        padding: 80px 20px 40px;
+        box-sizing: border-box;
+    }
+
+    .movie > img {
+        width: 70%;
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .movie-info {
+        max-width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .movie-info h1 {
+        font-size: 32px;
+    }
+
+    .movie-info p {
+        font-size: 16px;
+    }
+
+    .movie-info .rating {
+        font-size: 24px;
+    }
+
+    .recommendations {
+        width: 90%;
+        padding: 60px 20px;
+        box-sizing: border-box;
+    }
+
+    .recommendations form {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+
+
